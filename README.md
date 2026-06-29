@@ -1,62 +1,88 @@
-# 🐾 Tienda de Mascotas
+# 🐾 Pet Manager - Tienda de Mascotas
 
-Proyecto desarrollado para **Programación III** — Tecnicatura Universitaria en Programación (TUP) — **UTN**.
+Proyecto académico desarrollado para **Programación III** de la **Tecnicatura Universitaria en Programación - UTN**.
 
-Aplicación web CRUD en **Laravel 13** para la gestión de mascotas. Permite registrar, listar, buscar y paginar mascotas usando el ORM Eloquent con vistas Blade.
-
----
-
-## 🧰 Tecnologías
-
-| Tecnología | Versión |
-|---|---|
-| Laravel | 13.x |
-| PHP | 8.3+ |
-| Base de datos | SQLite |
-| Frontend | Blade + CSS personalizado |
-| Tipografía | Inter (Google Fonts) |
-| Build | Vite |
+La aplicación consiste en un sistema web simple para gestionar mascotas. Permite registrar nuevas mascotas, listar los registros existentes, buscar por nombre o especie y navegar los resultados mediante paginación.
 
 ---
 
-## ✨ Funcionalidades
+## 🎯 Objetivo del proyecto
 
-- **Registro de mascotas** — Formulario con validación (nombre, especie, edad)
-- **Listado paginado** — Tabla con 5 mascotas por página
-- **Búsqueda** — Filtro por nombre o especie
-- **Paginación personalizada** — Navegación entre páginas con diseño moderno
-- **Mensajes flash** — Feedback visual al registrar una mascota
+El objetivo principal fue aplicar conceptos de Laravel en un CRUD funcional, utilizando:
+
+* Rutas web
+* Controladores
+* Modelos Eloquent
+* Migraciones
+* Seeders y Factories
+* Validaciones
+* Vistas Blade
+* Paginación
 
 ---
 
-## 🗄️ Base de datos
+## 🧰 Tecnologías utilizadas
+
+| Herramienta       | Uso                  |
+| ----------------- | -------------------- |
+| Laravel 13        | Framework backend    |
+| PHP 8.3+          | Lenguaje principal   |
+| MYSQL          | Base de datos local  |
+| Blade             | Motor de plantillas  |
+| CSS personalizado | Diseño visual        |
+| Vite              | Compilación frontend |
+| Faker             | Datos de prueba      |
+
+---
+
+## ✨ Funcionalidades principales
+
+* Registrar mascotas con nombre, especie y edad.
+* Validar los datos antes de guardar.
+* Listar mascotas en una tabla.
+* Buscar mascotas por nombre o especie.
+* Paginar resultados para mejorar la visualización.
+* Mostrar mensajes de confirmación al registrar datos.
+* Generar mascotas de prueba con seeders.
+
+---
+
+## 🗄️ Estructura de la base de datos
 
 ### Tabla `pets`
 
-| Columna | Tipo | Descripción |
-|---|---|---|
-| `id` | BIGINT UNSIGNED PK | Identificador único |
-| `name` | VARCHAR(255) | Nombre de la mascota |
-| `species` | VARCHAR(255) | Especie (Perro, Gato, Loro, etc.) |
-| `age` | INTEGER | Edad en años |
-| `created_at` | TIMESTAMP | Fecha de creación |
-| `updated_at` | TIMESTAMP | Fecha de actualización |
+| Campo        | Tipo            | Función                |
+| ------------ | --------------- | ---------------------- |
+| `id`         | BIGINT UNSIGNED | Identificador único    |
+| `name`       | VARCHAR         | Nombre de la mascota   |
+| `species`    | VARCHAR         | Especie de la mascota  |
+| `age`        | INTEGER         | Edad                   |
+| `created_at` | TIMESTAMP       | Fecha de creación      |
+| `updated_at` | TIMESTAMP       | Fecha de actualización |
 
-### Datos de prueba
+La tabla se crea mediante una migración de Laravel. Esto permite versionar la estructura de la base de datos y replicarla fácilmente en otro entorno.
+
+---
+
+## 🌱 Datos de prueba
+
+El proyecto utiliza una Factory para generar mascotas falsas con Faker.
+
+Comando:
 
 ```bash
 php artisan db:seed
 ```
 
-Genera **50 mascotas** aleatorias usando Factory + Faker.
+Esto crea 50 mascotas de prueba para probar el listado, la búsqueda y la paginación.
 
 ---
 
-## 🚀 Instalación
+## 🚀 Instalación del proyecto
 
 ```bash
-git clone https://github.com/Fernando-Nieva/tienda-de-mascostas.git
-cd tienda-de-mascostas
+git clone https://github.com/apolobenitez65-prog/Tienda-de-Mascotas
+cd Tienda-de-Mascotas
 composer install
 npm install
 cp .env.example .env
@@ -66,75 +92,78 @@ php artisan db:seed
 php artisan serve
 ```
 
-Luego acceder a `http://localhost:8000`.
+Luego abrir en el navegador:
+
+```bash
+http://127.0.0.1:8000
+```
+
+En PowerShell, si `npm install` da error por políticas de scripts, usar:
+
+```bash
+npm.cmd install
+npm.cmd run dev
+```
 
 ---
 
-## 📁 Estructura del proyecto
+## 📁 Estructura principal
 
-```
+```text
 app/
 ├── Http/Controllers/
-│   └── PetController.php      # Lógica CRUD (index, create, store)
+│   └── PetController.php
 ├── Models/
-│   └── Pet.php                # Modelo Eloquent con HasFactory
-├── Providers/
-│   └── AppServiceProvider.php  # Configuración de paginación
+│   └── Pet.php
 
 database/
 ├── factories/
-│   └── PetFactory.php          # Datos falsos para pruebas
+│   └── PetFactory.php
 ├── migrations/
-│   └── create_pets_table.php   # Esquema de la tabla pets
+│   └── create_pets_table.php
 └── seeders/
-    └── DatabaseSeeder.php      # Genera 50 mascotas
+    └── DatabaseSeeder.php
 
 resources/views/
 ├── layouts/
-│   └── app.blade.php           # Layout reutilizable
+│   └── app.blade.php
 ├── pets/
-│   ├── index.blade.php         # Listado con tabla y filtro
-│   └── create.blade.php        # Formulario de registro
-├── components/
-│   ├── nav-link.blade.php      # Componente de navegación
-│   ├── input-field.blade.php   # Campo de formulario
-│   ├── btn.blade.php           # Botón reutilizable
-│   ├── alert.blade.php         # Mensaje de alerta
-│   └── card.blade.php          # Contenedor tarjeta
-└── vendor/pagination/
-    └── custom.blade.php        # Paginación personalizada
-
-public/css/
-└── style.css                   # Estilos CSS personalizados
+│   ├── index.blade.php
+│   └── create.blade.php
+└── components/
 
 routes/
-└── web.php                     # Rutas web
+└── web.php
 ```
 
 ---
 
-## 🧪 Rutas disponibles
+## 🧪 Rutas del sistema
 
-| Método | URI | Controlador | Nombre |
-|---|---|---|---|
-| GET | `/` | `PetController@index` | `pets.index` |
-| GET | `/mascotas` | `PetController@index` | — |
-| GET | `/mascotas/crear` | `PetController@create` | `pets.create` |
-| POST | `/mascotas` | `PetController@store` | `pets.store` |
+| Método | Ruta              | Acción                   |
+| ------ | ----------------- | ------------------------ |
+| GET    | `/`               | Lista las mascotas       |
+| GET    | `/mascotas`       | Lista las mascotas       |
+| GET    | `/mascotas/crear` | Formulario de registro   |
+| POST   | `/mascotas`       | Guarda una nueva mascota |
 
 ---
 
-## 🎨 Diseño y UX
+## 🧠 Conceptos aplicados
 
-- **Layout reutilizable** con header, nav y footer común
-- **CSS externo** con estilos modernos (gradientes, sombras, transiciones)
-- **Componentes Blade** para código limpio y reutilizable
-- **Tabla** con zebrado, badges de especie y hover
-- **Paginación** con botones numerados y diseño propio
-- **Emojis** en navegación y botones para mejor experiencia visual
+Durante el desarrollo se trabajó con:
+
+* **Migraciones:** creación de la tabla `pets`.
+* **Modelo Eloquent:** representación de la tabla en Laravel.
+* **Factory:** generación automática de datos falsos.
+* **Seeder:** carga inicial de datos de prueba.
+* **Validaciones:** control de datos antes de guardar.
+* **Blade:** separación entre lógica y vista.
+* **Paginación:** mejora en la navegación del listado.
 
 ---
 
 ## 👨‍💻 Autor
 
-**Fernando Nieva** — TUP UTN
+**BENITEZ APOLO**
+Tecnicatura Universitaria en Programación - UTN
